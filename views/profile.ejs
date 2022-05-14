@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <h3 class="username">Concerned Documents</h3>
+      <form action="" class="form1">
+        <h5 class="inputfield">Aadhar Card</h5>
+        <input type="file" id="myFile" name="filename">
+        <h5 class="inputfield">Pan Card</h5>
+        <input type="file" id="myFile" name="filename">
+        <h5 class="inputfield">Salary slip</h5>
+        <p class="salaryinfo">Most recent salary slip expected!</p>
+        <input type="file" id="myFile" name="filename">
+        <h5 class="inputfield">Upload profile photo</h5>
+        <input type="file" id="myFile" name="filename">
+        <button type="submit">Submit All</button>
+      </form>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <form class="bankform" action="/bankDetails">
+        <h3 class="username">Bank Details</h3>
+        <input name="firstname" type="text" placeholder="Your name" class="box"><br>
+        <input type="text" placeholder="Account number" class="box"><br>
+        <input type="text" placeholder="IFSC Code" class="box"><br>
+        <input type="email" placeholder="Your email" class="box"><br>
+        <input type="number" placeholder="Contact number" class="box"><br>
+        <button type="submit" name="button" class="btn btn-1" type="button">Submit</button>
+      </form>
+
+    </div>
+
+<%- include('partials/footer') %>
