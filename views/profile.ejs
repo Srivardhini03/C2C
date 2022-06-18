@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-6 col-sm-12">
       <h3 class="username">Concerned Documents</h3>
-      <form action="" class="form1">
+      <form action="/bankDoc" class="form1">
         <h5 class="inputfield">Aadhar Card</h5>
         <input type="file" id="myFile" name="filename">
         <h5 class="inputfield">Pan Card</h5>
@@ -17,14 +17,14 @@
       </form>
     </div>
     <div class="col-md-6 col-sm-12">
-      <form class="bankform" action="/bankDetails">
+      <form class="bankform" action="/bankDetails" method="post">
         <h3 class="username">Bank Details</h3>
-        <input name="firstname" type="text" placeholder="Your name" class="box"><br>
-        <input type="text" placeholder="Account number" class="box"><br>
-        <input type="text" placeholder="IFSC Code" class="box"><br>
-        <input type="email" placeholder="Your email" class="box"><br>
-        <input type="number" placeholder="Contact number" class="box"><br>
-        <button type="submit" name="button" class="btn btn-1" type="button">Submit</button>
+        <input name="name" type="text" placeholder="Your name" class="box"><br>
+        <input name="accNo" type="text" placeholder="Account number" class="box"><br>
+        <input name="ifsc"type="text" placeholder="IFSC Code" class="box"><br>
+        <input name="email" type="email" placeholder="Your email" class="box"><br>
+        <input name="num" type="number" placeholder="Contact number" class="box"><br>
+        <button type="submit" name="button" class="btn btn-1">Submit</button>
       </form>
 
     </div>

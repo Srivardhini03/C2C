@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -14,6 +13,7 @@ const app = express();
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -27,34 +27,32 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
+
 //mongoose.set("useCreateIndex", true);
 
 //loan schema for record of each loan
-const loanSchema = new mongoose.Schema ({
-  loanee: String,
-  accNo : String,
-  amount : String,
-  tenure : String,
-  interest : String,
-  lender : String,
-});
+// const loanSchema = new mongoose.Schema ({
+//   loanee: String,
+//   accNo : String,
+//   amount : String,
+//   tenure : String,
+//   interest : String,
+//   lender : String,
+// });
 
-const userSchema = new mongoose.Schema ({
-  email: String,
-  password: String,
-  googleId: String,
-  details : {
-    bankDetails:{name:String,accNo:String,ifsc:String,email:String,num:String},
-    documets: String
-  } ,
-  loanApplied: [loanSchema],//loan
-  loanGiven: [loanSchema]//loan
-});
+// const userSchema = new mongoose.Schema ({
+//   email: String,
+//   password: String,
+//   googleId: String,
+//   bankDetails:{name:String,accNo:String,ifsc:String,email:String,num:String},
+//   documets: String,
+//   loanApplied: [loanSchema],//loan
+//   loanGiven: [loanSchema]//loan
+// });
 
 
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
+// userSchema.plugin(passportLocalMongoose);
+// userSchema.plugin(findOrCreate);
 
 const User = new mongoose.model("User", userSchema);
 const Loan = new mongoose.model("Loan",loanSchema); //model for loan
@@ -79,7 +77,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+
 
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return cb(err, user);
@@ -87,21 +85,22 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-app.get("/", function(req, res){
-  res.render("home");
-});
+// app.get("/", function(req, res){
+//   res.render("home");
+// });
+app.use('/',require('./routes'));
 
-app.get("/auth/google",
-  passport.authenticate('google', { scope: ["profile"] })
-);
+// app.get("/auth/google",
+//   passport.authenticate('google', { scope: ["profile"] })
+// );
+//
+// app.get("/auth/google/c2c",
+//   passport.authenticate('google', { failureRedirect: "/login" }),
+//   function(req, res) {
+//
+//     res.redirect("/loan");
+//   });
 
-app.get("/auth/google/c2c",
-  passport.authenticate('google', { failureRedirect: "/login" }),
-  function(req, res) {
-    // Successful authentication, redirect to loan.
-    res.redirect("/loan");
-  });
-//--complete autentication
 
 
 //login page
@@ -121,6 +120,8 @@ app.get("/loan", function(req, res){
       console.log(err);
     } else {
       if (foundUsers) {
+        //console.log("login")
+        console.log(req["user"]);
         res.render("loan");
       }
     }
@@ -129,6 +130,7 @@ app.get("/loan", function(req, res){
 
 //navbar-About
 app.get("/about", function(req, res){
+  console.log(req["user"]);
   res.render("about");
 });
 
@@ -160,7 +162,7 @@ app.get("/applyLoan", function(req, res){
 //registration save
 app.post("/register", function(req, res){
 
-  User.register({username: req.body.username}, req.body.password, function(err, user){
+  User.register({username: req.body.username},req.body.password, function(err, user){
     if (err) {
       console.log(err);
       res.redirect("/register");
@@ -193,10 +195,34 @@ app.post("/login", function(req, res){
 });
 
 //saving bank Details
-app.post("/bankDetails",function(req,res){
-      
+app.post("/bankDetails",function(req,res,next){
+   //var id = req["user"]._id;
+   console.log(req["user"]);
+   User.findById(id,function(err,user){
+     if(err){
+       console(err);
+     }
+     else{
+       user.bankDetails.name=req.body.name;
+       user.bankDetails.accNo=req.body.accNo;
+       user.bankDetails.ifsc=req.body.ifsc;
+       user.bankDetails.email=req.body.email;
+       user.bankDetails.num=req.body.num;
+     }
+   });
 
   });
+//saving bank Doc
+app.post("/bankDoc",function(req,res){
+
+
+
+    });
+
+//saving details of loan to be applied
+app.post("/applyLoan",function(req,res){
+
+});
 
 
 
