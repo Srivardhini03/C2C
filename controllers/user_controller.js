@@ -56,3 +56,9 @@ module.exports.profile = function(req, res){
 module.exports.createSession = function(req,res){
     //req.flash('success','Logged in Successfully');
     return res.redirect('/users/profile/'+ req.user.id);}
+
+module.exports.destroySession = function(req,res){
+        req.logout();
+      //  req.flash('success','You are logged Out!!');
+        return res.redirect('/');
+      }

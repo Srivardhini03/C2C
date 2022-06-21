@@ -7,6 +7,7 @@ const passport = require('passport');
 router.get('/signin',User.signin);
 router.get('/signup',User.signup);
 router.get('/profile/:id',User.profile);
+router.get('/sign-out',User.destroySession);
 
 router.post('/create',User.create);
 router.post('/create-session',passport.authenticate(
