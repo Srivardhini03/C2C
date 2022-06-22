@@ -4,10 +4,10 @@ module.exports.home = function(req,res){
   return res.render('home')
 }
 module.exports.signin = function(req,res){
-  // if(req.isAuthenticated()){
-  //     return res.redirect('/users/profile');
-  //     //return res.redirect('back');
-  // }
+  if(req.isAuthenticated()){
+      return res.redirect('/users/profile');
+      //return res.redirect('back');
+  }
   return res.render('login', {
       title: "Codeial | Sign In"
   })
@@ -24,9 +24,9 @@ module.exports.signup = function(req,res){
 }
 
 module.exports.create = function(req, res){
-//    if (req.body.password != req.body.confirm_password){
-  //      return res.redirect('back');
-    //}
+   if (req.body.password != req.body.confirm_password){
+       return res.redirect('back');
+    }
 
    User.findOne({email: req.body.email}, function(err, user){
 
@@ -46,7 +46,7 @@ module.exports.create = function(req, res){
 module.exports.profile = function(req, res){
     User.findById(req.params.id,function(err,user){
         console.log(user);
-        return res.render('loan', {
+        return res.render('home', {
             title: 'User Profile',
             profile_user:user
         })
@@ -62,3 +62,28 @@ module.exports.destroySession = function(req,res){
       //  req.flash('success','You are logged Out!!');
         return res.redirect('/');
       }
+
+module.exports.myDetails = function(req,res){
+  return res.render("myDetails");
+}
+
+
+module.exports.bankDetails =function(req,res){
+  console.log(req.params.id);
+        User.findById(req.params.id,function(err,user){
+            if(err){
+              console.log(err);
+            }
+            else{
+              user.bankDetails.name=req.body.name;
+              user.bankDetails.accNo=req.body.accNo;
+              user.bankDetails.ifsc=req.body.ifsc;
+              user.bankDetails.email=req.body.email;
+              user.bankDetails.num=req.body.num;
+              user.save();
+            //  console.log(user.bankDetails);
+           }
+        });
+        return res.redirect("back");
+        console.log("bank details")
+}

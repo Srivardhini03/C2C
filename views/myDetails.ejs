@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-6 col-sm-12">
       <h3 class="username">Concerned Documents</h3>
-      <form action="/bankDoc" class="form1">
+      <form action="/users/profile/<%=locals.user._id%>/Docs" class="form1">
         <h5 class="inputfield">Aadhar Card</h5>
         <input type="file" id="myFile" name="filename">
         <h5 class="inputfield">Pan Card</h5>
@@ -17,7 +17,7 @@
       </form>
     </div>
     <div class="col-md-6 col-sm-12">
-      <form class="bankform" action="/bankDetails" method="post">
+      <form class="bankform" action="/users/profile/<%=locals.user._id%>/bankDetails" method="post">
         <h3 class="username">Bank Details</h3>
         <input name="name" type="text" placeholder="Your name" class="box"><br>
         <input name="accNo" type="text" placeholder="Account number" class="box"><br>

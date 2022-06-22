@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const loanSchema = require('./loan');
 //const multer = require('multer');
 //const path = require('path');
 
@@ -10,9 +11,9 @@ const userSchema = new mongoose.Schema ({
           password: {type:String},
           googleId: String,
           bankDetails:{name:String,accNo:String,ifsc:String,email:String,num:String},
-          documets: String,
-        //  loanApplied: [loanSchema],//loan
-        //  loanGiven: [loanSchema]//loan
+          //documets: String,
+        loanApplied: [loanSchema],
+        loanGiven: [loanSchema]
         });
 
 const User = mongoose.model('User',userSchema);

@@ -7,3 +7,7 @@ const loanSchema = new mongoose.Schema ({
   interest : String,
   lender : String,
 });
+
+const Loan = mongoose.model('Loan',loanSchema);
+module.exports = loanSchema;
+module.exports.loan = Loan;
