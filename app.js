@@ -10,7 +10,11 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
+<% if (locals.user._id=!item.loaneeID && item.status!="completed"){ %>
+  <% } %>
 
+  <p>  <%=item.loaneeID%> hg </p>
+  <p> <%=locals.user._id%>  oj </p>
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 

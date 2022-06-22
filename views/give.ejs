@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<% for(var i = 0; i < loans.length; i++) { %>
+  <% if (loans[i].status!="completed"){ %>
+      <% if (loans[i].loaneeID!= locals.user._id){ %>
+  <% if (i === 0 || i % 3 === 0) { %>
+    <div class="row">
+  <% } %>
+    <div class="col-sm">
+      <div class="card border-danger mb-3" style="max-width: 20rem;">
+        <form action="/users/profile/loan/<%=loans[i].loaneeID%>/giveLoanSubmit" class="bankform" id="loanForm">
+         <p>loanee -> <%=loans[i].loanee%></p>
+         <p>amount -> <%=loans[i].amount%></p>
+         <p>tenure -> <%=loans[i].tenure%></p>
+         <p>interest -> <%=loans[i].interest%></p>
+          <button type="submit" class="btn btn-1" name="button">Lend</button>
+        </form>
+      </div>
+    </div>
+  <% if (i === 0 || i % 3 === 0) { %>
+    </div>
+  <% } %>
+<% } %>
+<% } %>
+<% } %>
+
+<%- include('partials/footer') %>

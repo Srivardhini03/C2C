@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const loanSchema = new mongoose.Schema ({
   loanee: String,
+  loaneeID : String,
   accNo : String,
   amount : String,
   tenure : String,
   interest : String,
   lender : String,
+  status : String,
+  dateOfApproval : String
 });
 
 const Loan = mongoose.model('Loan',loanSchema);

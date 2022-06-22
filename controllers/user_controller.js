@@ -36,7 +36,7 @@ module.exports.create = function(req, res){
             User.create({email:req.body.email,name:req.body.name,password:req.body.password},
               function(err, user){
                 if(err){console.log('error in creating user while signing up',err); return}
-                console.log(user);
+              //  console.log(user);
                 return res.redirect('/users/signin');
               })
         }else {return res.redirect('back'); }
@@ -45,7 +45,7 @@ module.exports.create = function(req, res){
 
 module.exports.profile = function(req, res){
     User.findById(req.params.id,function(err,user){
-        console.log(user);
+        //console.log(user);
         return res.render('home', {
             title: 'User Profile',
             profile_user:user

@@ -16,16 +16,19 @@ module.exports.applyLoanSubmit = function(req,res){
       else{
         var new_loan = new Loan.loan({
           loanee: user.name,
+          loaneeID : id,
           accNo : user.bankDetails.accNo,
           amount : req.body.amount,
           tenure : req.body.tenure,
-          interest : req.body.interest
+          interest : req.body.interest,
+          status : "pending",
+          dateOfApproval : new Date().toLocaleDateString()
         });
         new_loan.save();
         user.loanApplied.push(new_loan);
         user.save();
            console.log("applied loan Successfully");
-       console.log(user.bankDetails);
+    //   console.log(user.bankDetails);
     }
      return res.redirect("back");
 
@@ -33,5 +36,13 @@ module.exports.applyLoanSubmit = function(req,res){
 }
 
 module.exports.giveLoan = function(req,res){
-  return res.render("giveLoan");
+
+  Loan.loan.find({}, function(err, loans){
+    console.log(loans);
+  return res.render("giveLoan",{loans:loans});
+  });
+}
+
+module.exports.giveLoanSubmit = function(req,res){
+  return res.render("applyLoan");
 }
