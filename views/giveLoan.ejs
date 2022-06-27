@@ -1,19 +1,22 @@
 <%- include('partials/header') %>
+<div class="give">
+
 
 <%  loans.forEach(function(item){ %>
-  <% if (item.status!="completed"){ %>
+  <% if (item.status =="pending"){ %>
       <% if (item.loaneeID!= locals.user._id){ %>
-  <div class="col-md-3 col-sm-6">
-  <form action="/users/profile/loan/<%=item.loaneeID%>/giveLoanSubmit" class="bankform" id="loanForm">
+  <div class= "flex1">
+  <form action="/users/profile/loan/<%=item._id%>/<%=item.loaneeID%>/giveLoanSubmit" class="bankform" id="loanForm">
    <p>loanee -> <%=item.loanee%></p>
-   <p>amount -> <%=item.amount%></p>
-   <p>tenure -> <%=item.tenure%></p>
-   <p>interest -> <%=item.interest%></p>
+   <p>amount -> <%=item.amount%> rupees</p>
+   <p>tenure -> <%=item.tenure%> months</p>
+   <p>interest -> <%=item.interest%> percentage</p>
     <button type="submit" class="btn btn-1" name="button">Lend</button>
   </form>
 </div>
 <% } %>
 <% } %>
 <%  }); %>
+</div>
 
 <%- include('partials/footer') %>

@@ -9,6 +9,7 @@ router.get('/signup',User.signup);
 router.get('/profile/:id',User.profile);
 router.get('/sign-out',User.destroySession);
 router.get('/profile/:id/myDetails',User.myDetails);
+router.get('/profile/:id/history',User.history);
 
 router.post('/create',User.create);
 router.post('/create-session',passport.authenticate(

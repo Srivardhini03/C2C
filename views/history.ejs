@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+<div class="give">
+
+<%  loanGiven.forEach(function(item){ %>
+
+        <div class="flex1">
+          <form class="bankform" id="loanForm">
+            <h4>Loan Given</h4>
+          <p><%=item.amount%> rupees</p>
+          <p><%=item.tenure%> months</p>
+          <p><%=item.interest%> % interest</p>
+          <p><%=item.status%></p>
+          </form>
+          </div>
+  <%  }); %>
+  </div>
+
+<div class="give">
+
+<%  loanApplied.forEach(function(item){ %>
+        <div class="flex1" >
+          <form class="bankform" id="loanForm">
+            <h4>Loan Applied</h4>
+          <p><%=item.amount%> rupees</p>
+          <p><%=item.tenure%> months</p>
+          <p><%=item.interest%> % interest</p>
+          <p><%=item.status%></p>
+          </form>
+      </div>
+
+<%  }); %>
+</div>
+
+<%- include('partials/footer') %>

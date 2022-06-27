@@ -54,12 +54,12 @@ module.exports.profile = function(req, res){
 }
 
 module.exports.createSession = function(req,res){
-    //req.flash('success','Logged in Successfully');
+  //  req.flash('success','Logged in Successfully');
     return res.redirect('/users/profile/'+ req.user.id);}
 
 module.exports.destroySession = function(req,res){
         req.logout();
-      //  req.flash('success','You are logged Out!!');
+       //req.flash('success','You are logged Out!!');
         return res.redirect('/');
       }
 
@@ -86,4 +86,10 @@ module.exports.bankDetails =function(req,res){
         });
         return res.redirect("back");
         console.log("bank details")
+}
+
+module.exports.history = function(req,res){
+  User.findById(req.params.id,function(err,user){
+  return res.render("history",{loanGiven:user.loanGiven,loanApplied:user.loanApplied});
+});
 }

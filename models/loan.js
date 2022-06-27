@@ -6,7 +6,7 @@ const loanSchema = new mongoose.Schema ({
   amount : String,
   tenure : String,
   interest : String,
-  lender : String,
+  lenderID : String,
   status : String,
   dateOfApproval : String
 });

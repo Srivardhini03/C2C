@@ -1,6 +1,5 @@
 body {
-  background-color: #FCF8EC;
-}
+  background-color: #FCF8EC;}
 .container{
   color: #964488;
 }
@@ -334,4 +333,18 @@ body {
   margin-right: 50px;
   width: 90%; */
   display: none;
+}
+
+.flex1 p {
+  /* display : grid;
+  overflow: hidden;
+  grid-template: auto / repeat(auto-fit,minmax(300px,1fr)); */
+  background-color: pink;
+
+}
+
+.give{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

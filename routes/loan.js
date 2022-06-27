@@ -4,7 +4,7 @@ const Loan = require('../controllers/loan_controller');
 
 router.get('/applyLoan',Loan.applyLoan);
 router.get('/giveLoan',Loan.giveLoan);
-router.get('/:id1/giveLoanSubmit',Loan.giveLoanSubmit)
+router.get('/:id1/:id2/giveLoanSubmit',Loan.giveLoanSubmit)
 
 router.post('/applyLoanSubmit',Loan.applyLoanSubmit);
 

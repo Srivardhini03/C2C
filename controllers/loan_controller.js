@@ -21,8 +21,7 @@ module.exports.applyLoanSubmit = function(req,res){
           amount : req.body.amount,
           tenure : req.body.tenure,
           interest : req.body.interest,
-          status : "pending",
-          dateOfApproval : new Date().toLocaleDateString()
+          status : "pending"
         });
         new_loan.save();
         user.loanApplied.push(new_loan);
@@ -38,11 +37,54 @@ module.exports.applyLoanSubmit = function(req,res){
 module.exports.giveLoan = function(req,res){
 
   Loan.loan.find({}, function(err, loans){
-    console.log(loans);
+  //  console.log(loans);
   return res.render("giveLoan",{loans:loans});
   });
 }
 
 module.exports.giveLoanSubmit = function(req,res){
-  return res.render("applyLoan");
+  const id1 = req.params.id1; //loan
+  const id2 = req.params.id2;//loanee
+  const id=req.user._id; //loner
+  Loan.loan.findById(id1,function(err,loan){
+//    console.log(loan);
+    if(err){
+      console.log(err);
+    }
+    else{
+      loan.status = "approved";
+      loan.lenderID = id;
+      loan.dateOfApproval = new Date().toLocaleDateString();
+      loan.save();
+
+      User.findById(id,function(err,user){
+        if(err){
+          console.log(err);
+        }else{
+          user.loanGiven.push(loan);
+          user.save();
+              }
+       });
+       User.findById(id2,function(err,user){
+        // console.log(user);
+         if(err){
+           console.log(err);
+         }else{
+           for(let i=0;i<user.loanApplied.length;i++){
+            // console.log(user.loanApplied[i]._id.toString());
+            // console.log(loan._id.toString());
+             if(user.loanApplied[i]._id.toString()==loan._id.toString()){
+              // console.log("hwt");
+               user.loanApplied[i].status="approved";
+               user.loanApplied[i].lenderID = id;
+               user.loanApplied.dateOfApproval = new Date().toLocaleDateString();
+             }
+           }
+           user.save();
+               }
+        });
+
+     }
+      return res.redirect("back");
+  });
 }
