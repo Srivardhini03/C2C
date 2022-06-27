@@ -12,6 +12,7 @@ const MongoStore = require('connect-mongo');
 const mongoose = require("mongoose");
 const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
+const passportGoogle = require('./config/passportGoogle');
 //const flash = require('connect-flash');
 
 const app = express();

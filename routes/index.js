@@ -7,6 +7,7 @@ console.log('router loaded');
 
 router.get('/', UserController.home);
 router.use('/users',require('./users'));
+
 //router.use('/loan', require('./loan'));
 
 module.exports = router;
