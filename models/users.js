@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema ({
           password: {type:String},
           googleId: String,
           bankDetails:{name:String,accNo:String,ifsc:String,email:String,num:String},
-          //documets: String,
         loanApplied: [loanSchema],
         loanGiven: [loanSchema]
         });

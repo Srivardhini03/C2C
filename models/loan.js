@@ -4,7 +4,7 @@ const loanSchema = new mongoose.Schema ({
   loaneeID : String,
   accNo : String,
   amount : String,
-  tenure : String,
+  tenure : Number,
   interest : String,
   lenderID : String,
   status : String,

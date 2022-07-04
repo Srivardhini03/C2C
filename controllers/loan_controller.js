@@ -54,7 +54,7 @@ module.exports.giveLoanSubmit = function(req,res){
     else{
       loan.status = "approved";
       loan.lenderID = id;
-      loan.dateOfApproval = new Date().toLocaleDateString();
+      loan.dateOfApproval = new Date().toISOString().slice(0,10);
       loan.save();
 
       User.findById(id,function(err,user){
@@ -71,19 +71,17 @@ module.exports.giveLoanSubmit = function(req,res){
            console.log(err);
          }else{
            for(let i=0;i<user.loanApplied.length;i++){
-            // console.log(user.loanApplied[i]._id.toString());
-            // console.log(loan._id.toString());
              if(user.loanApplied[i]._id.toString()==loan._id.toString()){
-              // console.log("hwt");
+
                user.loanApplied[i].status="approved";
                user.loanApplied[i].lenderID = id;
-               user.loanApplied.dateOfApproval = new Date().toLocaleDateString();
+               user.loanApplied.dateOfApproval = new Date().toISOString().slice(0,10);
              }
            }
            user.save();
                }
         });
-
+      console.log("loan given Successfully");
      }
       return res.redirect("back");
   });

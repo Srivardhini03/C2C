@@ -84,12 +84,52 @@ module.exports.bankDetails =function(req,res){
             //  console.log(user.bankDetails);
            }
         });
+        console.log("bank details saved")
         return res.redirect("back");
-        console.log("bank details")
+
 }
 
 module.exports.history = function(req,res){
+
+  function addMonths(numOfMonths, date = new Date()) {
+  date.setMonth(date.getMonth() + numOfMonths);
+
+  return date;
+}
+
   User.findById(req.params.id,function(err,user){
+    user.loanApplied.forEach(function(item){
+
+      function addMonths(numOfMonths, date = new Date()) {
+        const dateCopy = new Date(date.getTime());
+        dateCopy.setMonth(dateCopy.getMonth() + numOfMonths);
+        return dateCopy;
+      }
+
+      const date = new Date(item.dateOfApproval);
+      const result = addMonths(item.tenure, date);
+
+     if(result == new Date().toISOString().slice(0,10)){
+       item.status="completed";
+       item.save();
+     }
+});
+user.loanGiven.forEach(function(item){
+
+  function addMonths(numOfMonths, date = new Date()) {
+    const dateCopy = new Date(date.getTime());
+    dateCopy.setMonth(dateCopy.getMonth() + numOfMonths);
+    return dateCopy;
+  }
+
+  const date = new Date(item.dateOfApproval);
+  const result = addMonths(item.tenure, date);
+
+ if(result == new Date().toISOString().slice(0,10)){
+   item.status="completed";
+   item.save();
+ }
+});
   return res.render("history",{loanGiven:user.loanGiven,loanApplied:user.loanApplied});
 });
 }

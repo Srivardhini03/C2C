@@ -1,4 +1,5 @@
 <%- include('partials/header') %>
+<% if (locals.user.bankDetails.accNo){ %>
 <div class="give">
 
 
@@ -18,5 +19,10 @@
 <% } %>
 <%  }); %>
 </div>
+<% }
+else{ %>
+  <h1>Fill your details(bank) first to apply for Loan</h1>
+<a class="navtext nav-link" href="/users/profile/<%=user.id%>/myDetails">My Details</a>
+<% } %>
 
 <%- include('partials/footer') %>
